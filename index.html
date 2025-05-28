@@ -19,7 +19,7 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
         }
-        
+
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -29,7 +29,7 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             backdrop-filter: blur(10px);
         }
-        
+
         h1 {
             text-align: center;
             color: #2c3e50;
@@ -37,7 +37,7 @@
             font-size: 2.5em;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
-        
+
         .input-section {
             background: linear-gradient(145deg, #f8f9fa, #e9ecef);
             padding: 20px;
@@ -45,7 +45,7 @@
             margin-bottom: 30px;
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
         }
-        
+
         .input-group {
             display: flex;
             align-items: center;
@@ -53,13 +53,13 @@
             justify-content: center;
             flex-wrap: wrap;
         }
-        
+
         label {
             font-weight: bold;
             color: #2c3e50;
             font-size: 1.1em;
         }
-        
+
         input[type="number"] {
             padding: 12px 15px;
             border: 2px solid #ddd;
@@ -69,26 +69,28 @@
             text-align: center;
             transition: all 0.3s ease;
         }
-        
+
         input[type="number"]:focus {
             border-color: #667eea;
             outline: none;
             box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
         }
-        
+
         .table-container {
             overflow-x: auto;
+            overflow-y: auto;
             border-radius: 10px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             background: white;
+            max-height: 70vh;
         }
-        
+
         table {
             width: 100%;
             border-collapse: collapse;
             font-size: 14px;
         }
-        
+
         th {
             background: linear-gradient(145deg, #667eea, #764ba2);
             color: white;
@@ -100,62 +102,80 @@
             z-index: 10;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        
+
         td {
             padding: 10px 8px;
             text-align: center;
             border-bottom: 1px solid #eee;
             transition: background-color 0.2s ease;
         }
-        
+
         tr:nth-child(even) {
             background-color: #f8f9fa;
         }
-        
+
         tr:hover {
             background-color: #e3f2fd;
             transform: scale(1.01);
             transition: all 0.2s ease;
         }
-        
+
         .angle-col {
             background-color: #fff3e0 !important;
             font-weight: bold;
             color: #e65100;
         }
-        
+
         .function-col {
             font-family: 'Courier New', monospace;
         }
-        
+
         .error {
             color: #d32f2f;
             font-weight: bold;
         }
-        
+
         .infinite {
             color: #1976d2;
             font-weight: bold;
         }
-        
+
+        .minute-expand {
+            cursor: pointer;
+            color: #667eea;
+            background: none;
+            border: none;
+            font-size: 1em;
+            padding: 0 6px;
+            vertical-align: middle;
+        }
+
+        .minute-expand:focus {
+            outline: 1px solid #667eea;
+        }
+
+        .second-row {
+            background-color: #e8f0fe !important;
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 15px;
             }
-            
+
             h1 {
                 font-size: 2em;
             }
-            
+
             table {
                 font-size: 12px;
             }
-            
+
             th, td {
                 padding: 8px 4px;
             }
         }
-        
+
         .legend {
             margin-top: 20px;
             padding: 15px;
@@ -167,233 +187,171 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🔧 Precision Machining Trigonometric Calculator</h1>
-        
-        <div class="input-section">
-            <div class="input-group">
-                <label for="degrees">Enter Degrees:</label>
-                <input type="number" id="degrees" value="30" min="0" max="360" step="1">
-                <span>°</span>
-            </div>
-        </div>
-        
-        <div class="table-container">
-            <table id="trigTable">
-                <thead>
-                    <tr>
-                        <th>Angle (D°M'S")</th>
-                        <th>Decimal Degrees</th>
-                        <th>Radians</th>
-                        <th>sin(θ)</th>
-                        <th>cos(θ)</th>
-                        <th>tan(θ)</th>
-                        <th>cot(θ)</th>
-                        <th>sec(θ)</th>
-                        <th>csc(θ)</th>
-                    </tr>
-                </thead>
-                <tbody id="trigTableBody">
-                </tbody>
-            </table>
-        </div>
-        
-        <div class="legend">
-            <strong>📱 MOBILE READY:</strong> Tap "How to Install" button for easy app installation instructions!<br>
-            <strong>PRECISION MACHINING NOTES:</strong><br>
-            • <strong>Formulas Verified:</strong> sin(θ), cos(θ), tan(θ) = sin(θ)/cos(θ), cot(θ) = cos(θ)/sin(θ), sec(θ) = 1/cos(θ), csc(θ) = 1/sin(θ)<br>
-            • <strong>Precision:</strong> 10 decimal places for machining accuracy | <strong>Undefined:</strong> tan & sec at 90°±n×180°, cot & csc at 0°±n×180°<br>
-            • <strong>Units:</strong> D° = Degrees, M' = Minutes, S" = Seconds | 1° = 60', 1' = 60", 1° = 3600"<br>
-            • <strong>Machining Applications:</strong> Compound angles, taper calculations, thread pitches, fixture setups
+<div class="container">
+    <h1>🔧 Precision Machining Trigonometric Calculator</h1>
+
+    <div class="input-section">
+        <div class="input-group">
+            <label for="degrees">Enter Degrees:</label>
+            <input type="number" id="degrees" value="30" min="0" max="360" step="1">
+            <span>°</span>
         </div>
     </div>
 
-    <script>
-        // PWA Service Worker Registration
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('data:application/javascript;base64,Ly8gU2ltcGxlIHNlcnZpY2Ugd29ya2VyIGZvciBvZmZsaW5lIGZ1bmN0aW9uYWxpdHkKY29uc3QgQ0FDSEVfTkFNRSA9ICd0cmlnLWNhbGMtdjEuMCc7CmNvbnN0IHVybHNUb0NhY2hlID0gWycuLyddOwoKc2VsZi5hZGRFdmVudExpc3RlbmVyKCdpbnN0YWxsJywgKGUpID0+IHsKICBlLndhaXRVbnRpbChzZWxmLnNraXBXYWl0aW5nKCkpOwogIGNhY2hlcy5vcGVuKENBQ0hFX05BTUUpLnRoZW4oKGNhY2hlKSA9PiBjYWNoZS5hZGRBbGwodXJsc1RvQ2FjaGUpKTsKfSk7CgpzZWxmLmFkZEV2ZW50TGlzdGVuZXIoJ2ZldGNoJywgKGUpID0+IHsKICBlLnJlc3BvbmRXaXRoKAogICAgY2FjaGVzLm1hdGNoKGUucmVxdWVzdCkudGhlbigocmVzcG9uc2UpID0+IHsKICAgICAgcmV0dXJuIHJlc3BvbnNlIHx8IGZldGNoKGUucmVxdWVzdCk7CiAgICB9KQogICk7Cn0pOw==')
-                .then(() => console.log('PWA ready for offline use'))
-                .catch(err => console.log('Service worker registration failed'));
-        }
+    <div class="table-container" style="max-height: 70vh; overflow-y: auto;">
+        <table id="trigTable">
+            <thead>
+            <tr>
+                <th>Angle (D°M'S")</th>
+                <th>Decimal Degrees</th>
+                <th>Radians</th>
+                <th>sin(θ)</th>
+                <th>cos(θ)</th>
+                <th>tan(θ)</th>
+                <th>cot(θ)</th>
+                <th>sec(θ)</th>
+                <th>csc(θ)</th>
+            </tr>
+            </thead>
+            <tbody id="trigTableBody">
+            </tbody>
+        </table>
+    </div>
 
-        // Alternative Install Methods
-        function showInstallInstructions() {
-            const installBtn = document.createElement('button');
-            installBtn.innerHTML = '📱 How to Install';
-            installBtn.style.cssText = `
-                position: fixed;
-                top: 10px;
-                right: 10px;
-                background: linear-gradient(145deg, #4CAF50, #45a049);
-                color: white;
-                border: none;
-                padding: 10px 15px;
-                border-radius: 25px;
-                font-weight: bold;
-                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-                cursor: pointer;
-                z-index: 1000;
-                animation: pulse 2s infinite;
-            `;
-            
-            installBtn.addEventListener('click', () => {
-                const modal = document.createElement('div');
-                modal.style.cssText = `
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background: rgba(0,0,0,0.8);
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    z-index: 2000;
-                `;
-                
-                modal.innerHTML = `
-                    <div style="background: white; padding: 30px; border-radius: 15px; max-width: 90%; max-height: 80%; overflow-y: auto;">
-                        <h2 style="color: #333; text-align: center;">📱 Install as App</h2>
-                        <div style="text-align: left; line-height: 1.6;">
-                            <h3>🔥 Chrome (Recommended):</h3>
-                            <p>1. Tap <strong>⋮ menu</strong> → <strong>"Add to Home screen"</strong><br>
-                            2. Choose app name → Tap <strong>"Add"</strong><br>
-                            3. App appears on home screen!</p>
-                            
-                            <h3>🦊 Firefox:</h3>
-                            <p>1. Tap <strong>⋮ menu</strong> → <strong>"Add to Home screen"</strong><br>
-                            2. Confirm installation</p>
-                            
-                            <h3>🌐 Samsung Internet:</h3>
-                            <p>1. Tap <strong>⋮ menu</strong> → <strong>"Add page to"</strong> → <strong>"Home screen"</strong></p>
-                            
-                            <h3>💾 Offline Storage:</h3>
-                            <p>1. Bookmark this page<br>
-                            2. Works without internet once loaded!</p>
-                        </div>
-                        <button onclick="this.parentElement.parentElement.remove()" 
-                                style="background: #667eea; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-top: 20px; width: 100%;">
-                            Got It! 👍
-                        </button>
-                    </div>
-                `;
-                
-                document.body.appendChild(modal);
-            });
-            
-            document.body.appendChild(installBtn);
-        }
-        
-        // Show install instructions immediately
-        setTimeout(showInstallInstructions, 1000);
+    <div class="legend">
+        <strong>PRECISION MACHINING NOTES:</strong><br>
+        • <strong>Formulas Verified:</strong> sin(θ), cos(θ), tan(θ) = sin(θ)/cos(θ), cot(θ) = cos(θ)/sin(θ), sec(θ) = 1/cos(θ), csc(θ) = 1/sin(θ)<br>
+        • <strong>Precision:</strong> 10 decimal places for machining accuracy | <strong>Undefined:</strong> tan & sec at 90°±n×180°, cot & csc at 0°±n×180°<br>
+        • <strong>Units:</strong> D° = Degrees, M' = Minutes, S" = Seconds | 1° = 60', 1' = 60", 1° = 3600"<br>
+        • <strong>Machining Applications:</strong> Compound angles, taper calculations, thread pitches, fixture setups
+    </div>
+</div>
 
-        // Add pulse animation for install button
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes pulse {
-                0% { transform: scale(1); }
-                50% { transform: scale(1.05); }
-                100% { transform: scale(1); }
-            }
+<script>
+    // --- UTILS ---
+    function formatNumber(num) {
+        if (Math.abs(num) > 1000000 || (Math.abs(num) < 0.0000001 && num !== 0)) {
+            return num.toExponential(10);
+        }
+        return Number(num.toFixed(10)).toString();
+    }
+    function degreesToRadians(degrees) {
+        return degrees * Math.PI / 180;
+    }
+    function formatAngle(degrees, minutes, seconds) {
+        return `${degrees}°${minutes.toString().padStart(2, '0')}'${seconds.toString().padStart(2, '0')}"`;
+    }
+    function calculateTrigFunctions(angleInDegrees) {
+        const angleInRadians = angleInDegrees * Math.PI / 180;
+        const sin = Math.sin(angleInRadians);
+        const cos = Math.cos(angleInRadians);
+        const tan = Math.tan(angleInRadians);
+        const precision = 1e-12;
+        const cot = (Math.abs(sin) < precision) ? '∞' : formatNumber(cos / sin);
+        const sec = (Math.abs(cos) < precision) ? '∞' : formatNumber(1 / cos);
+        const csc = (Math.abs(sin) < precision) ? '∞' : formatNumber(1 / sin);
+        const tanValue = (Math.abs(cos) < precision) ? '∞' : formatNumber(tan);
+        return {
+            sin: formatNumber(sin),
+            cos: formatNumber(cos),
+            tan: tanValue,
+            cot: cot,
+            sec: sec,
+            csc: csc,
+            radians: formatNumber(angleInRadians)
+        };
+    }
+
+    // --- RENDERING ---
+    function makeMinuteRow(baseDegrees, minutes, expanded) {
+        let seconds = 0;
+        const totalDegrees = baseDegrees + minutes / 60;
+        const functions = calculateTrigFunctions(totalDegrees);
+        const minuteId = `minute-row-${minutes}`;
+        return `
+            <tr id="${minuteId}" class="minute-row" data-minute="${minutes}">
+                <td class="angle-col">
+                    <button class="minute-expand" aria-label="Expand seconds for minute ${minutes}" data-minute="${minutes}">
+                        ${expanded ? '▼' : '▶'}
+                    </button>
+                    ${formatAngle(baseDegrees, minutes, seconds)}
+                </td>
+                <td>${formatNumber(totalDegrees)}</td>
+                <td class="function-col">${functions.radians}</td>
+                <td class="function-col">${functions.sin}</td>
+                <td class="function-col">${functions.cos}</td>
+                <td class="function-col ${functions.tan === '∞' ? 'infinite' : ''}">${functions.tan}</td>
+                <td class="function-col ${functions.cot === '∞' ? 'infinite' : ''}">${functions.cot}</td>
+                <td class="function-col ${functions.sec === '∞' ? 'infinite' : ''}">${functions.sec}</td>
+                <td class="function-col ${functions.csc === '∞' ? 'infinite' : ''}">${functions.csc}</td>
+            </tr>
         `;
-        document.head.appendChild(style);
+    }
 
-        function formatNumber(num, isAngle = false) {
-            // For machining precision, use more decimal places
-            if (Math.abs(num) > 1000000 || (Math.abs(num) < 0.0000001 && num !== 0)) {
-                return num.toExponential(10);
-            }
-            // Use 10 decimal places for maximum machining precision
-            return Number(num.toFixed(10)).toString();
-        }
-        
-        function degreesToRadians(degrees) {
-            return degrees * Math.PI / 180;
-        }
-        
-        function formatAngle(degrees, minutes, seconds) {
-            return `${degrees}°${minutes.toString().padStart(2, '0')}'${seconds.toString().padStart(2, '0')}"`;
-        }
-        
-        function calculateTrigFunctions(angleInDegrees) {
-            // Convert to radians using high precision PI
-            const angleInRadians = angleInDegrees * Math.PI / 180;
-            
-            // Calculate primary functions with high precision
-            const sin = Math.sin(angleInRadians);
-            const cos = Math.cos(angleInRadians);
-            const tan = Math.tan(angleInRadians);
-            
-            // Define precision threshold (1e-12 for machining precision)
-            const precision = 1e-12;
-            
-            // Calculate reciprocal functions with proper undefined handling
-            const cot = (Math.abs(sin) < precision) ? '∞' : formatNumber(cos / sin);
-            const sec = (Math.abs(cos) < precision) ? '∞' : formatNumber(1 / cos);
-            const csc = (Math.abs(sin) < precision) ? '∞' : formatNumber(1 / sin);
-            
-            // Handle tangent undefined cases (90°, 270°, etc.)
-            const tanValue = (Math.abs(cos) < precision) ? '∞' : formatNumber(tan);
-            
-            return {
-                sin: formatNumber(sin),
-                cos: formatNumber(cos),
-                tan: tanValue,
-                cot: cot,
-                sec: sec,
-                csc: csc,
-                radians: formatNumber(angleInRadians)
-            };
-        }
-        
-        function updateTable() {
-            const baseDegrees = parseInt(document.getElementById('degrees').value) || 0;
-            const tableBody = document.getElementById('trigTableBody');
-            tableBody.innerHTML = '';
-            
-            // Generate rows for each minute and second combination
-            for (let minutes = 0; minutes < 60; minutes++) {
-                for (let seconds = 0; seconds < 60; seconds++) {
-                    const totalDegrees = baseDegrees + minutes/60 + seconds/3600;
-                    const functions = calculateTrigFunctions(totalDegrees);
-                    
-                    const row = document.createElement('tr');
-                    
-                    // Add special styling for exact degree marks
-                    if (minutes === 0 && seconds === 0) {
-                        row.style.background = 'linear-gradient(90deg, #fff3e0, #ffe0b2)';
-                        row.style.fontWeight = 'bold';
-                    }
-                    
-                    row.innerHTML = `
-                        <td class="angle-col">${formatAngle(baseDegrees, minutes, seconds)}</td>
-                        <td>${formatNumber(totalDegrees)}</td>
-                        <td class="function-col">${functions.radians}</td>
-                        <td class="function-col">${functions.sin}</td>
-                        <td class="function-col">${functions.cos}</td>
-                        <td class="function-col ${functions.tan === '∞' ? 'infinite' : ''}">${functions.tan}</td>
-                        <td class="function-col ${functions.cot === '∞' ? 'infinite' : ''}">${functions.cot}</td>
-                        <td class="function-col ${functions.sec === '∞' ? 'infinite' : ''}">${functions.sec}</td>
-                        <td class="function-col ${functions.csc === '∞' ? 'infinite' : ''}">${functions.csc}</td>
-                    `;
-                    
-                    tableBody.appendChild(row);
+    function makeSecondRow(baseDegrees, minutes, seconds) {
+        const totalDegrees = baseDegrees + minutes / 60 + seconds / 3600;
+        const functions = calculateTrigFunctions(totalDegrees);
+        return `
+            <tr class="second-row" data-minute="${minutes}" data-second="${seconds}">
+                <td class="angle-col">${formatAngle(baseDegrees, minutes, seconds)}</td>
+                <td>${formatNumber(totalDegrees)}</td>
+                <td class="function-col">${functions.radians}</td>
+                <td class="function-col">${functions.sin}</td>
+                <td class="function-col">${functions.cos}</td>
+                <td class="function-col ${functions.tan === '∞' ? 'infinite' : ''}">${functions.tan}</td>
+                <td class="function-col ${functions.cot === '∞' ? 'infinite' : ''}">${functions.cot}</td>
+                <td class="function-col ${functions.sec === '∞' ? 'infinite' : ''}">${functions.sec}</td>
+                <td class="function-col ${functions.csc === '∞' ? 'infinite' : ''}">${functions.csc}</td>
+            </tr>
+        `;
+    }
+
+    function updateTable() {
+        const baseDegrees = parseInt(document.getElementById('degrees').value) || 0;
+        const tableBody = document.getElementById('trigTableBody');
+        tableBody.innerHTML = '';
+        // Track which minutes are expanded
+        window._minuteExpanded = window._minuteExpanded || {};
+        for (let minutes = 0; minutes < 60; minutes++) {
+            const expanded = !!window._minuteExpanded[minutes];
+            tableBody.insertAdjacentHTML('beforeend', makeMinuteRow(baseDegrees, minutes, expanded));
+            if (expanded) {
+                for (let seconds = 1; seconds < 60; seconds++) {
+                    tableBody.insertAdjacentHTML('beforeend', makeSecondRow(baseDegrees, minutes, seconds));
                 }
             }
         }
-        
-        // Event listener for input changes
-        document.getElementById('degrees').addEventListener('input', updateTable);
-        
-        // Initialize table
+        addMinuteExpandListeners();
+    }
+
+    // --- HANDLERS ---
+    function addMinuteExpandListeners() {
+        document.querySelectorAll('.minute-expand').forEach(btn => {
+            btn.onclick = function (e) {
+                const minutes = parseInt(this.getAttribute('data-minute'));
+                window._minuteExpanded = window._minuteExpanded || {};
+                window._minuteExpanded[minutes] = !window._minuteExpanded[minutes];
+                updateTable();
+            };
+        });
+    }
+
+    document.getElementById('degrees').addEventListener('input', function () {
+        window._minuteExpanded = {}; // Reset all expanded when degree changes
         updateTable();
-        
-        // Add smooth scrolling animation when table updates
-        function smoothScrollToTop() {
-            document.querySelector('.table-container').scrollTop = 0;
-        }
-        
-        document.getElementById('degrees').addEventListener('change', smoothScrollToTop);
-    </script>
+    });
+
+    // --- INITIALIZE ---
+    window._minuteExpanded = {};
+    updateTable();
+
+    // PWA Service Worker Registration (unchanged)
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('data:application/javascript;base64,Ly8gU2ltcGxlIHNlcnZpY2Ugd29ya2VyIGZvciBvZmZsaW5lIGZ1bmN0aW9uYWxpdHkKY29uc3QgQ0FDSEVfTkFNRSA9ICd0cmlnLWNhbGMtdjEuMCc7CmNvbnN0IHVybHNUb0NhY2hlID0gWycuLyddOwoKc2VsZi5hZGRFdmVudExpc3RlbmVyKCdpbnN0YWxsJywgKGUpID0+IHsKICBlLndhaXRVbnRpbChzZWxmLnNraXBXYWl0aW5nKCkpOwogIGNhY2hlcy5vcGVuKENBQ0hFX05BTUUpLnRoZW4oKGNhY2hlKSA9PiBjYWNoZS5hZGRBbGwodXJsc1RvQ2FjaGUpKTsKfSk7CgpzZWxmLmFkZEV2ZW50TGlzdGVuZXIoJ2ZldGNoJywgKGUpID0+IHsKICBlLnJlc3BvbmRXaXRoKAogICAgY2FjaGVzLm1hdGNoKGUucmVxdWVzdCkudGhlbigocmVzcG9uc2UpID0+IHsKICAgICAgcmV0dXJuIHJlc3BvbnNlIHx8IGZldGNoKGUucmVxdWVzdCk7CiAgICB9KQogICk7Cn0pOw==')
+            .then(() => console.log('PWA ready for offline use'))
+            .catch(err => console.log('Service worker registration failed'));
+    }
+    // Removed install instructions popup
+</script>
 </body>
 </html>
